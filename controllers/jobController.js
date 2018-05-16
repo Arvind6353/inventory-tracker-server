@@ -26,14 +26,14 @@ exports.createJob = function(req,res,next) {
 }
 
 exports.getJobsById = function(req,res,next) {
-    var sql = "SELECT * from PRODUCT-INVENTORY` where BP_ID = ?";
+    var sql = "SELECT * from `PRODUCT-INVENTORY` where BP_ID = ?";
     try {
        db.query(sql,[req.params.id], function(err, result) {
           if (err) {
             logger.error(err);
             return next(err);
           }
-          logger.info("Branch Data found ");
+          logger.info("Job Data found for branch-product id "+ req.params.id);
           res.json(result);
         });
     } catch (err) {
