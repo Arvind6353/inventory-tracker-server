@@ -1,28 +1,41 @@
 var db = require("../db/config");
 var logger = require("../utils/logger");
 
+var async = require("async");
+
 exports.createJob = function(req,res,next) {
-    var sql = "INSERT into `PRODUCT-INVENTORY` (bp_id,quantity,end_day_enter,created_date, created_by) VALUES (?)"; 
-    var values = [
-       req.body.bp_id,
-       req.body.quantity,
-       req.body.isEndDay,
-       new Date(),
-       req.body.member_code
-      ];
-    try {
-       db.query(sql,[values], function(err, result) {
-          if (err) {
+
+    var items = req.body;
+    async.eachSeries(items,function(itm, callback){
+        var sql = "INSERT into `PRODUCT-INVENTORY` (bp_id,quantity,end_day_enter,created_date, created_by) VALUES (?)"; 
+        var values = [
+           itm.bp_id,
+           itm.quantity,
+           itm.isEndDay,
+           new Date(),
+           itm.member_code
+          ];
+        try {
+           db.query(sql,[values], function(err, result) {
+              if (err) {
+                logger.error(err);
+                callback(err);
+              }
+              logger.info("Number of rows inserted " + result.affectedRows);
+              callback(null,result.affectedRows);
+            });
+        } catch (err) {
             logger.error(err);
-            return next(err);
-          }
-          logger.info("Number of rows inserted " + result.affectedRows);
-          res.json(result);
-        });
-    } catch (err) {
-        logger.error(err);
-        next(err);
-    }
+            callback(err);
+        }
+
+    }, function(err, rslts){
+        if(err){
+            return res.json(err);
+        }
+        res.json({status : "success"})
+    })
+    
 }
 
 exports.getJobsById = function(req,res,next) {
