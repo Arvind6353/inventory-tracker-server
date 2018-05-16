@@ -32,9 +32,10 @@ branchRouter.route('/:id/teachers')
 
 branchRouter.route('/:id/products')
 .all(function(req,res,next) {
-    console.log(' inside branch router with branch id param to getr products')
+    console.log(' inside branch router with branch id param to get products')
     next();
 })
 .get(branchController.getProductsByBranchId);
+
 
 module.exports = branchRouter;
