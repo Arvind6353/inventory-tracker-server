@@ -1,2 +1,2 @@
 exports.branchRouter = require("./branch");
-exports.jobRouter = require("./job");
+exports.inventoryRouter = require("./inventory");
