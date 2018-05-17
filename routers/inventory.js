@@ -8,11 +8,11 @@ inventoryRouter.route('/')
     console.log(' inside inventory router call')
     next();
 })
-.post(inventoryController.createInventory)
+.post(inventoryController.createInventory);
 
-inventoryRouter.route('/:id')
+inventoryRouter.route('/branch/:id')
 .all(function(req,res,next) {
-    console.log(' inside inventory router with inventory id param')
+    console.log(' inside inventory router with inventory id param');
     next();
 })
 .get(inventoryController.getInventoryByBranchId)

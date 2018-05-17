@@ -70,7 +70,8 @@ app.get("/", function(req,res,next){
 const router = require('./routers/index')
 
 app.use('/api/v1/branches', router.branchRouter)
-app.use('/api/v1/inventory', router.inventoryRouter)
+app.use('/api/v1/inventories', router.inventoryRouter);
+app.use('/api/v1/reports', router.reportRouter);
 
 
 // catch 404 and forward to error handler
