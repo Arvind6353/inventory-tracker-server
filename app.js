@@ -42,7 +42,6 @@ app.use(bodyParser.urlencoded({
 // security 
 app.use(helmet());
 
-// // content secuirty policy settings
 app.use(helmet.contentSecurityPolicy({
   directives: {
     defaultSrc: ["'self'"],
@@ -51,7 +50,6 @@ app.use(helmet.contentSecurityPolicy({
     imgSrc: ["data:","'self'", "maxcdn.bootstrapcdn.com","http://code.jquery.com","https://www.paypalobjects.com"]
   }
 }))
-
 
 app.use(function (req, res, next) {
   res.set('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
@@ -64,6 +62,10 @@ app.get('/favicon.ico', function(req, res) {
 });
 
 app.use(express.static(path.join(__dirname, 'public')));
+
+app.get("/", function(req,res,next){
+  res.render("index");
+})
 
 const router = require('./routers/index')
 
@@ -85,7 +87,7 @@ app.use(function (err, req, res, next) {
   res.locals.error = req.app.get('env') === 'development' ? err : {};
   // render the error page
   //logger.error(err)
-    res.status(500).redirect('/error?type=ie');
+    res.status(500).render('error');
 });
 
 process.on('uncaughtException', function(err) {
