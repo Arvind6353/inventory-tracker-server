@@ -47,7 +47,7 @@ exports.createBranch = function(req,res,next) {
 
 
 exports.getBranchById = function(req,res,next) {
-    var sql = "SELECT * from BRANCH where BRANCH_ID = ?";
+    var sql = "SELECT * from BRANCH where ID = ?";
     try {
        db.query(sql,[req.params.id], function(err, result) {
           if (err) {
@@ -66,7 +66,7 @@ exports.getBranchById = function(req,res,next) {
 
 
 exports.getTeachersByBranchId = function(req,res,next) {
-    var sql = "SELECT * from MEMBER where BRANCH_ID = ?";
+    var sql = "SELECT * from MEMBER where ID = ?";
     try {
        db.query(sql,[req.params.id], function(err, result) {
           if (err) {
@@ -83,7 +83,7 @@ exports.getTeachersByBranchId = function(req,res,next) {
 }
 
 exports.getProductsByBranchId = function(req,res,next) {
-    var sql = "SELECT * FROM `BRANCH-PRODUCT` bp,`PRODUCT` p where p.P_ID = bp.PRODUCT_ID and BRANCH_ID = ? ";
+    var sql = "SELECT * FROM `BRANCH-PRODUCT` bp,`PRODUCT` p where p.ID = bp.PRODUCT_ID and BRANCH_ID = ? ";
     try {
        db.query(sql,[req.params.id], function(err, result) {
           if (err) {
@@ -94,9 +94,10 @@ exports.getProductsByBranchId = function(req,res,next) {
 
           var rslt = result.map((rs,i)=>{
               return {
-                bp_id : rs.bp_id,
-                product_name : rs.product_name,
-                product_description : rs.product_description
+                id : rs.bp_id,
+                name : rs.name,
+                description : rs.description,
+                img: rs.img
               }
             })
 
