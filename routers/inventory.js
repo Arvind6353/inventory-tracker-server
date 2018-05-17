@@ -15,6 +15,6 @@ inventoryRouter.route('/:id')
     console.log(' inside inventory router with inventory id param')
     next();
 })
-.get(inventoryController.getInventoryById)
+.get(inventoryController.getInventoryByBranchId)
 
 module.exports = inventoryRouter;
