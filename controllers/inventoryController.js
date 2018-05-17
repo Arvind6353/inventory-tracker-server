@@ -3,7 +3,7 @@ var logger = require("../utils/logger");
 
 var async = require("async");
 
-exports.createJob = function(req,res,next) {
+exports.createInventory = function(req,res,next) {
 
     var items = req.body;
     async.eachSeries(items,function(itm, callback){
@@ -38,7 +38,7 @@ exports.createJob = function(req,res,next) {
     
 }
 
-exports.getJobsById = function(req,res,next) {
+exports.getInventoryById = function(req,res,next) {
     var sql = "SELECT * from `PRODUCT-INVENTORY` where BP_ID = ?";
     try {
        db.query(sql,[req.params.id], function(err, result) {
@@ -46,7 +46,7 @@ exports.getJobsById = function(req,res,next) {
             logger.error(err);
             return next(err);
           }
-          logger.info("Job Data found for branch-product id "+ req.params.id);
+          logger.info("Inventory Data found for branch-product id "+ req.params.id);
           res.json(result);
         });
     } catch (err) {

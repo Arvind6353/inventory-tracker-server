@@ -1,2 +1,2 @@
 exports.branchController = require('./branchController');
-exports.jobController = require('./jobController');
+exports.inventoryController = require('./inventoryController');

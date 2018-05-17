@@ -63,16 +63,12 @@ app.get('/favicon.ico', function(req, res) {
   res.status(204);
 });
 
-
-
 app.use(express.static(path.join(__dirname, 'public')));
-
-
 
 const router = require('./routers/index')
 
 app.use('/api/v1/branches', router.branchRouter)
-app.use('/api/v1/jobs', router.jobRouter)
+app.use('/api/v1/inventory', router.inventoryRouter)
 
 
 // catch 404 and forward to error handler
@@ -89,7 +85,6 @@ app.use(function (err, req, res, next) {
   res.locals.error = req.app.get('env') === 'development' ? err : {};
   // render the error page
   //logger.error(err)
- // console.log('some error occurred',err);
     res.status(500).redirect('/error?type=ie');
 });
 
