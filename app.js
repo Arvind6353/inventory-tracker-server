@@ -51,17 +51,15 @@ app.use(helmet.contentSecurityPolicy({
   }
 }))
 
-app.use(function (req, res, next) {
-  res.set('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
-  next();
-})
 // end config
 
 app.get('/favicon.ico', function(req, res) {
   res.status(204);
 });
 
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'public'), {
+  maxAge: 86400000 * 300
+ }))
 
 app.get("/", function(req,res,next){
   res.render("index");
