@@ -9,7 +9,7 @@ exports.createInventory = function(req,res,next) {
     var items = req.body;
     async.eachSeries(items,function(itm, callback){
 
-        var checkForDuplicateSql = "Select * from `PRODUCT-INVENTORY` where bp_id = ? and created_date > ? and created_date < ?";
+        var checkForDuplicateSql = "Select * from `PRODUCT-INVENTORY` where bp_id = ? and created_date > ? and created_date < ? and quantity = 0";
 
         var values = [
             itm.bp_id,
@@ -23,7 +23,7 @@ exports.createInventory = function(req,res,next) {
                     logger.error(err);
                     callback(err);
                 }
-                if(result.length > 0 ) {
+                if(result.length > 0 & itm.quantity == 0) {
                  return  callback(null,'');
                 } else {
                     var sql = "INSERT into `PRODUCT-INVENTORY` (bp_id,quantity,end_day_enter,created_date, created_by) VALUES (?)"; 
@@ -62,6 +62,7 @@ exports.createInventory = function(req,res,next) {
 exports.getInventoryByBranchId = function(req,res,next) {
     var sql = "\
     SELECT bp.bp_id as branch_product_id,\
+    bp.created_date as created_date ,\
     p.name as product_name,\
     p.description as product_description,\
     p.image as img,\

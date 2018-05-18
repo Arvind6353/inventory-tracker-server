@@ -7,7 +7,7 @@ var moment = require("moment");
 
 exports.getInventoryByBranchProductId = function(req,res,next) {
     var sql = "\
-    SELECT pi.*, m.name FROM `product-inventory` pi\
+    SELECT pi.*, m.name , m.code , if(pi.end_day_enter='Y','Evening','Afternoon') as enter_session FROM `product-inventory` pi\
     join \
     member m \
     on m.code = pi.created_by \
