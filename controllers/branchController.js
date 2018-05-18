@@ -97,7 +97,7 @@ exports.getProductsByBranchId = function(req,res,next) {
                 id : rs.bp_id,
                 name : rs.name,
                 description : rs.description,
-                img: rs.img
+                img: rs.image
               }
             })
 

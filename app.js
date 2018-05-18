@@ -70,9 +70,10 @@ app.get("/", function(req,res,next){
 const router = require('./routers/index')
 
 app.use('/api/v1/branches', router.branchRouter)
+
 app.use('/api/v1/inventories', router.inventoryRouter);
 app.use('/api/v1/reports', router.reportRouter);
-
+app.use('/api/v1/branchProduct', router.branchProductRouter)
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
@@ -87,7 +88,7 @@ app.use(function (err, req, res, next) {
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
   // render the error page
-  //logger.error(err)
+   logger.error(err)
     res.status(500).render('error');
 });
 
