@@ -5,6 +5,8 @@ var connection = mysql.createConnection({
     host: '10.176.16.106',
    // port: '3301',
     user: "admin",
+    // user : "root",
+    //password : '',
    // password: "Admin",
     password: "Admin1234!",
     database: 'maithree-db'

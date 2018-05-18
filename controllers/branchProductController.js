@@ -12,7 +12,7 @@ exports.getInventoryByBranchProductId = function(req,res,next) {
     member m \
     on m.code = pi.created_by \
     where pi.bp_id = ?\
-    and pi.created_date > ? and pi.created_date < ? ";
+    and pi.created_date > ? and pi.created_date < ? order by created_date desc";
     
     console.log(req.params.id,req.query.startDate, req.query.endDate);
     try {
