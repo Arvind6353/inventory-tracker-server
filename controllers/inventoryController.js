@@ -64,7 +64,7 @@ exports.getInventoryByBranchId = function(req,res,next) {
     SELECT bp.bp_id as branch_product_id,\
     p.name as product_name,\
     p.description as product_description,\
-    p.img as img,\
+    p.image as img,\
     sum(pi.quantity) as product_quantity\
     FROM `branch-product` bp,\
         `product-inventory` pi,\
