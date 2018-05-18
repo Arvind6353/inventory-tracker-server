@@ -2,11 +2,11 @@ var mysql = require('mysql');
 var logger = require('../utils/logger')
 
 var connection = mysql.createConnection({
-    host: 'localhost',
+    host: '10.176.16.106',
    // port: '3301',
-    user: "root",
+    user: "admin",
    // password: "Admin",
-    password: "",
+    password: "Admin1234!",
     database: 'maithree-db'
 });
 

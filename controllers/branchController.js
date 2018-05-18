@@ -2,7 +2,7 @@ var db = require("../db/config");
 var logger = require("../utils/logger");
 
 exports.getBranchList = function(req,res,next) {
-    var sql = "SELECT * from BRANCH ";
+    var sql = "SELECT * from branch ";
     try {
        db.query(sql, function(err, result) {
           if (err) {
@@ -19,7 +19,7 @@ exports.getBranchList = function(req,res,next) {
 }
 
 exports.createBranch = function(req,res,next) {
-    var sql = "INSERT into BRANCH (partner_id,merchant_id,guid,timestamp,special_pricing_status,salesforce_case_id,backlogmerchant) VALUES (?)"; 
+    var sql = "INSERT into branch (partner_id,merchant_id,guid,timestamp,special_pricing_status,salesforce_case_id,backlogmerchant) VALUES (?)"; 
     var values = [
         payload["partner-id"],
         payload["merchant-payer-id"],
@@ -47,7 +47,7 @@ exports.createBranch = function(req,res,next) {
 
 
 exports.getBranchById = function(req,res,next) {
-    var sql = "SELECT * from BRANCH where ID = ?";
+    var sql = "SELECT * from branch where ID = ?";
     try {
        db.query(sql,[req.params.id], function(err, result) {
           if (err) {
@@ -66,7 +66,7 @@ exports.getBranchById = function(req,res,next) {
 
 
 exports.getTeachersByBranchId = function(req,res,next) {
-    var sql = "SELECT * from MEMBER where ID = ?";
+    var sql = "SELECT * from member where ID = ?";
     try {
        db.query(sql,[req.params.id], function(err, result) {
           if (err) {
@@ -83,7 +83,7 @@ exports.getTeachersByBranchId = function(req,res,next) {
 }
 
 exports.getProductsByBranchId = function(req,res,next) {
-    var sql = "SELECT * FROM `BRANCH-PRODUCT` bp,`PRODUCT` p where p.ID = bp.PRODUCT_ID and BRANCH_ID = ? ";
+    var sql = "SELECT * FROM `branch-product` bp,`product` p where p.ID = bp.PRODUCT_ID and BRANCH_ID = ? ";
     try {
        db.query(sql,[req.params.id], function(err, result) {
           if (err) {

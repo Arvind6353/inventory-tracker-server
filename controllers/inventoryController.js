@@ -9,7 +9,7 @@ exports.createInventory = function(req,res,next) {
     var items = req.body;
     async.eachSeries(items,function(itm, callback){
 
-        var checkForDuplicateSql = "Select * from `PRODUCT-INVENTORY` where bp_id = ? and created_date > ? and created_date < ? and quantity = 0";
+        var checkForDuplicateSql = "Select * from `product-inventory` where bp_id = ? and created_date > ? and created_date < ? and quantity = 0";
 
         var values = [
             itm.bp_id,
@@ -26,7 +26,7 @@ exports.createInventory = function(req,res,next) {
                 if(result.length > 0 & itm.quantity == 0) {
                  return  callback(null,'');
                 } else {
-                    var sql = "INSERT into `PRODUCT-INVENTORY` (bp_id,quantity,end_day_enter,created_date, created_by) VALUES (?)"; 
+                    var sql = "INSERT into `product-inventory` (bp_id,quantity,end_day_enter,created_date, created_by) VALUES (?)"; 
                     var values = [
                     itm.bp_id,
                     itm.quantity,
@@ -86,7 +86,6 @@ exports.getInventoryByBranchId = function(req,res,next) {
             return next(err);
           }
           logger.info("Inventory Data found for branch-product id "+ req.params.id);
-          console.log(result);
           res.json(result);
         });
     } catch (err) {
