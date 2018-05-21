@@ -19,7 +19,7 @@ exports.getAllInventries = function(value, callBack){
       if(pi.end_day_enter='Y','Evening','Afternoon') as enter_session, \
       pi.created_date as entered_date \
     FROM `product-inventory` pi \
-    join member m on m.member_code = pi.created_by \
+    join member m on m.code = pi.created_by \
     join `branch-product` bp on bp.bp_id = pi.bp_id \
     join `branch` b on b.id = bp.branch_id \
     join product p on p.id = bp.product_id \
