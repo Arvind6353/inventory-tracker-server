@@ -9,7 +9,6 @@ branchRouter.route('/')
     next();
 })
 .get(branchController.getBranchList)
-.post(branchController.createBranch)
 //.delete(branchController.deleteAllBranch)
 
 branchRouter.route('/:id')
