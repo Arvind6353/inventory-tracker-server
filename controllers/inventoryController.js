@@ -26,12 +26,15 @@ exports.createInventory = function(req,res,next) {
                 if(result.length > 0 & itm.quantity == 0) {
                  return  callback(null,'');
                 } else {
+                    var d = new Date();    
+                    var utcDate = d.getTime() + (d.getTimezoneOffset() * 60000);
+                    var istDate = new Date(utc + (3600000*("+5.5")));
                     var sql = "INSERT into `product-inventory` (bp_id,quantity,end_day_enter,created_date, created_by) VALUES (?)"; 
                     var values = [
                     itm.bp_id,
                     itm.quantity,
                     itm.isEndDay,
-                    new Date(),
+                    istDate,
                     itm.member_code
                     ];
                 
