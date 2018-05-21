@@ -39,7 +39,7 @@ exports.getBranchById = function(req,res,next) {
 
 
 exports.getTeachersByBranchId = function(req,res,next) {
-    var sql = "SELECT * from member where ID = ?";
+    var sql = "SELECT * from member where branch_id = ?";
     try {
        db.query(sql,[req.params.id], function(err, result) {
           if (err) {
