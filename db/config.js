@@ -10,7 +10,7 @@ var connection = mysql.createConnection({
    // password: "Admin",
     password: "Admin1234!",
     database: 'maithree-db',
-    timezone : 'IST'
+    timezone: 'utc'
 });
 
 connection.connect(function (err) {
