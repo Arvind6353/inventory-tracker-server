@@ -34,7 +34,7 @@ exports.createInventory = function(req,res,next) {
                     itm.bp_id,
                     itm.quantity,
                     itm.isEndDay,
-                    d,
+                    new Date(itm.createdDate),
                     itm.member_code
                     ];
                 

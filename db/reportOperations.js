@@ -30,8 +30,6 @@ exports.getAllInventries = function(value, callBack){
                     .concat(value.endDate ? filterByEndDate : '')
                     .concat(orderBy);
    
-     console.log(sqlQuery);   
-
     try{
         db.query(sqlQuery,[value.startDate, value.endDate], function(err, result){
             if (err) {

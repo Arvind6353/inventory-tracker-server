@@ -9,7 +9,8 @@ var connection = mysql.createConnection({
     //password : '',
    // password: "Admin",
     password: "Admin1234!",
-    database: 'maithree-db'
+    database: 'maithree-db',
+    timezone : 'IST'
 });
 
 connection.connect(function (err) {
