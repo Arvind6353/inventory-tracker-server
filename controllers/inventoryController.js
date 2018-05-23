@@ -3,6 +3,7 @@ var logger = require("../utils/logger");
 
 var async = require("async");
 var moment = require("moment");
+var momentTz = require('moment-timezone');
 
 exports.createInventory = function(req,res,next) {
 
@@ -13,10 +14,10 @@ exports.createInventory = function(req,res,next) {
 
         var values = [
             itm.bp_id,
-            moment(new Date()).startOf("day").format("YYYY-MM-DD HH:mm:ss"),
-            moment(new Date()).endOf("day").format("YYYY-MM-DD HH:mm:ss")
+            momentTz(new Date(itm.created_date)).tz("Asia/Kolkata").startOf("day").format("YYYY-MM-DD HH:mm:ss"),
+            momentTz(new Date(itm.created_date)).tz("Asia/Kolkata").endOf("day").format("YYYY-MM-DD HH:mm:ss")
            ];
-         
+         console.log(values);
         try {
             db.query(checkForDuplicateSql, values , function(err, result) {
                 if (err) {
@@ -24,6 +25,7 @@ exports.createInventory = function(req,res,next) {
                     callback(err);
                 }
                 if(result.length > 0 & itm.quantity == 0) {
+                    logger.error("duplicate found")
                  return  callback(null,'');
                 } else {
                     var d = new Date();    
@@ -34,10 +36,11 @@ exports.createInventory = function(req,res,next) {
                     itm.bp_id,
                     itm.quantity,
                     itm.isEndDay,
-                    d,
+                    new Date(itm.created_date),
                     itm.member_code
                     ];
-                
+                    console.log('before insert');
+                    console.log(values);
                     db.query(sql,[values], function(err, result) {
                         if (err) {
                             logger.error(err);

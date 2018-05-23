@@ -7,10 +7,14 @@ var connection = mysql.createConnection({
     port: '3301',
    // user: "admin",
      user : "root",
-    //password : '',
-    password: "Admin",
+    password : '',
+   // password: "Admin",
    // password: "Admin1234!",
     database: 'maithree-db'
+   // password: "Admin",
+    //password: "Admin1234!",
+    database: 'maithree-db',
+    timezone: 'utc'
 });
 
 connection.connect(function (err) {
