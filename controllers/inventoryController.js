@@ -13,8 +13,8 @@ exports.createInventory = function(req,res,next) {
 
         var values = [
             itm.bp_id,
-            moment(new Date()).startOf("day").format("YYYY-MM-DD HH:mm:ss"),
-            moment(new Date()).endOf("day").format("YYYY-MM-DD HH:mm:ss")
+            moment(new Date(itm.created_date)).startOf("day").format("YYYY-MM-DD HH:mm:ss"),
+            moment(new Date(itm.created_date)).endOf("day").format("YYYY-MM-DD HH:mm:ss")
            ];
          
         try {
