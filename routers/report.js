@@ -8,5 +8,10 @@ reportRouter.route('/inventories')
     console.log(' inside inventory router call')
     next();
 }).get(reportController.getInventriesDetail);
+reportRouter.route('/inventories/summary')
+.all(function(req,res,next) {
+    console.log(' inside inventory router call')
+    next();
+}).get(reportController.getInventriesCount);
 
 module.exports = reportRouter;
