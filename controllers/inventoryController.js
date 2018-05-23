@@ -3,6 +3,7 @@ var logger = require("../utils/logger");
 
 var async = require("async");
 var moment = require("moment");
+var momentTz = require('moment-timezone');
 
 exports.createInventory = function(req,res,next) {
 
@@ -13,10 +14,10 @@ exports.createInventory = function(req,res,next) {
 
         var values = [
             itm.bp_id,
-            moment(new Date(itm.created_date)).startOf("day").format("YYYY-MM-DD HH:mm:ss"),
-            moment(new Date(itm.created_date)).endOf("day").format("YYYY-MM-DD HH:mm:ss")
+            momentTz(new Date(itm.created_date)).tz("Asia/India").startOf("day").format("YYYY-MM-DD HH:mm:ss"),
+            momentTz(new Date(itm.created_date)).tz("Asia/India").endOf("day").format("YYYY-MM-DD HH:mm:ss")
            ];
-         
+         console.log(values);
         try {
             db.query(checkForDuplicateSql, values , function(err, result) {
                 if (err) {
@@ -38,7 +39,8 @@ exports.createInventory = function(req,res,next) {
                     new Date(itm.created_date),
                     itm.member_code
                     ];
-                
+                    console.log('before insert');
+                    console.log(values);
                     db.query(sql,[values], function(err, result) {
                         if (err) {
                             logger.error(err);
