@@ -24,6 +24,7 @@ exports.createInventory = function(req,res,next) {
                     callback(err);
                 }
                 if(result.length > 0 & itm.quantity == 0) {
+                    logger.error("duplicate found")
                  return  callback(null,'');
                 } else {
                     var d = new Date();    
