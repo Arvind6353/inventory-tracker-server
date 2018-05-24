@@ -73,6 +73,8 @@ app.use('/api/v1/inventories', router.inventoryRouter);
 app.use('/api/v1/reports', router.reportRouter);
 app.use('/api/v1/branchProduct', router.branchProductRouter)
 
+app.use('/api/v1/target', router.targetRouter)
+
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
   var err = new Error('Not Found ' + req.path);
