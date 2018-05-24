@@ -31,13 +31,14 @@ exports.createInventory = function(req,res,next) {
                     var d = new Date();    
                     // var utcDate = d.getTime() + (d.getTimezoneOffset() * 60000);
                     // var istDate = new Date(utcDate + (3600000*("+5")));
-                    var sql = "INSERT into `product-inventory` (bp_id,quantity,end_day_enter,created_date, created_by) VALUES (?)"; 
+                    var sql = "INSERT into `product-inventory` (bp_id,quantity,end_day_enter,created_date, created_by, comments) VALUES (?)"; 
                     var values = [
                     itm.bp_id,
                     itm.quantity,
                     itm.isEndDay,
                     new Date(itm.created_date),
-                    itm.member_code
+                    itm.member_code,
+                    itm.comments
                     ];
                     console.log('before insert');
                     console.log(values);
