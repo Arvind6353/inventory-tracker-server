@@ -30,3 +30,22 @@ exports.getInventoryByBranchProductId = function(req,res,next) {
     }
 }
 
+
+exports.getCompletedCountByBranchProductId = function(req,res,next) {
+    var sql = "SELECT sum(quantity) as completedCount FROM `maithree-db`.`product-inventory`  where bp_id = ? and created_date > ? and created_date < ? ";
+    
+    console.log(req.params.id,req.query.startDate, req.query.endDate);
+    try {
+       db.query(sql,[req.params.id, req.query.startDate,req.query.endDate], function(err, result) {
+          if (err) {
+            logger.error(err);
+            return next(err);
+          }
+          logger.info("Completed Count found for branch-product id "+ req.params.id);
+          res.json(result);
+        });
+    } catch (err) {
+        logger.error(err);
+        next(err);
+    }
+}
