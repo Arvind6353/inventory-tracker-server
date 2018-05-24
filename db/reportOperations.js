@@ -15,6 +15,7 @@ exports.getAllInventries = function(value, callBack){
       b.name as branch_name, \
       p.name as product_name, \
       pi.quantity as quantity, \
+      pi.comments as comments,\
       m.name as entered_by, \
       if(pi.end_day_enter='Y','Evening','Afternoon') as enter_session, \
       pi.created_date as entered_date \
