@@ -32,7 +32,7 @@ exports.getInventoryByBranchProductId = function(req,res,next) {
 
 
 exports.getCompletedCountByBranchProductId = function(req,res,next) {
-    var sql = "SELECT sum(quantity) as completedCount FROM `maithree-db`.`product-inventory`  where bp_id = ? and created_date > ? and created_date < ? ";
+    var sql = "SELECT sum(quantity) as completedCount FROM `maithree-db`.`product-inventory`  where bp_id = ? and created_date >= ? and created_date <= ? ";
     
     console.log(req.params.id,req.query.startDate, req.query.endDate);
     try {
