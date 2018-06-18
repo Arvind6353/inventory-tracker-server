@@ -18,4 +18,20 @@ branchProductRouter.route('/:id/count')
 .get(branchProductController.getCompletedCountByBranchProductId)
 
 
+branchProductRouter.route('/:id/price')
+.all(function(req,res,next) {
+    console.log(' inside branchProduct router with branchProduct id param to get price')
+    next();
+})
+.get(branchProductController.getPriceForBranchProductId)
+
+
+branchProductRouter.route('/:id/details')
+.all(function(req,res,next) {
+    console.log(' inside branchProduct router with branchProduct id param to get details such as count and price ')
+    next();
+})
+.get(branchProductController.getDetailsForBranchProductId)
+
+
 module.exports = branchProductRouter;
