@@ -7,9 +7,13 @@ var request = require('request');
 var config = require('config');
 var helmet = require('helmet')
 var cors = require("cors");
+var jwt = require('jsonwebtoken');
+
 var logger = require('./utils/logger');
 
 var db = require('./db/config');
+
+var secrectjson = require('./db/secret.json')
 
 
 //configs
@@ -67,13 +71,22 @@ app.get("/", function(req,res,next){
 
 const router = require('./routers/index')
 
-app.use('/api/v1/branches', router.branchRouter)
+var authMiddleware = function(req,res,next) {
+  console.log(req.headers.auth);
+  jwt.verify(req.headers.auth, secrectjson.secret, function(err, decoded) {
+    if (err) return res.status(401).send({ auth: false, message: 'Failed to authenticate.' });
+    next();
+  });
+}
 
-app.use('/api/v1/inventories', router.inventoryRouter);
-app.use('/api/v1/reports', router.reportRouter);
-app.use('/api/v1/branchProduct', router.branchProductRouter)
+app.use('/api/v1/branches', authMiddleware, router.branchRouter)
+
+app.use('/api/v1/inventories', authMiddleware ,router.inventoryRouter);
+app.use('/api/v1/reports', authMiddleware ,router.reportRouter);
+app.use('/api/v1/branchProduct', authMiddleware ,router.branchProductRouter)
 
 app.use('/api/v1/target', router.targetRouter)
+app.use('/api/v1/auth', router.authRouter)
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
