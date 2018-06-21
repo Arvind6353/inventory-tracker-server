@@ -69,7 +69,7 @@ exports.createInventory = function(req,res,next) {
 exports.getInventoryByBranchId = function(req,res,next) {
     var sql = "\
     SELECT bp.bp_id as branch_product_id,\
-    bp.price as price,\
+    p.price as price,\
     bp.created_date as created_date ,\
     p.name as product_name,\
     p.description as product_description,\
