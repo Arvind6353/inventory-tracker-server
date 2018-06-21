@@ -36,5 +36,19 @@ branchRouter.route('/:id/products')
 })
 .get(branchController.getProductsByBranchId);
 
+branchRouter.route('/:id/products')
+.all(function(req,res,next) {
+    console.log(' inside branch router with branch id param to insert products')
+    next();
+})
+.post(branchController.createProductsByBranchId);
+
+branchRouter.route('/:id/targets')
+.all(function(req,res,next) {
+    console.log(' inside branch router with branch id param to insert targets')
+    next();
+})
+.post(branchController.createTargetsByBranchId);
+
 
 module.exports = branchRouter;

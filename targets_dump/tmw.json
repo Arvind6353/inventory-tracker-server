@@ -1,0 +1,44 @@
+{
+    "targets" : [
+          {
+              "product_name" : "COTTON WASTE MAT",
+              "quantity" : "275",
+              "month" : "6"
+          },
+          {
+              "product_name" : "COTTON CLOTH TOWEL",
+              "quantity" : "100",
+              "month" : "6"
+          }, 
+          {
+            "product_name" : "COTTON FABRIC",
+            "quantity" : "60",
+            "month" : "6"
+          },
+          {
+            "product_name" : "COTTON HAND SLEEVES",
+            "quantity" : "1000",
+            "month" : "6"
+          },
+          {
+            "product_name" : "PHENYL (700 ml)",
+            "quantity" : "1400",
+            "month" : "6"
+          },
+          {
+            "product_name" : "PAPER TAG",
+            "quantity" : "20000",
+            "month" : "6"
+          },
+          {
+            "product_name" : "NEWS PAPER  BAG - Type 1 - SANITARY",
+            "quantity" : "5000",
+            "month" : "6"
+          },
+          {
+            "product_name" : "NEWS PAPER  BAG - Type 2 - TAPOVAN WITH HANDLE",
+            "quantity" : "3000",
+            "month" : "6"
+          }
+        ]
+ } 

@@ -1,0 +1,29 @@
+{
+    "targets" : [
+          {
+            "product_name" : "COTTON WASTE MAT",
+            "quantity" : "150",
+            "month" : "6"
+          },
+          {
+            "product_name" : "COTTON CLOTH TOWEL",
+            "quantity" : "50",
+            "month" : "6"
+          },
+          {
+            "product_name" : "COTTON FABRIC",
+            "quantity" : "25",
+            "month" : "6"
+          },
+          {
+            "product_name" : "PHENYL (700 ml)",
+            "quantity" : "560",
+            "month" : "6"
+          },
+          {
+            "product_name" : "NEWS PAPER  BAG - Type 1 - SANITARY",
+            "quantity" : "3000",
+            "month" : "6"
+          }
+        ]
+ } 

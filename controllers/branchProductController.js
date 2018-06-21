@@ -54,8 +54,7 @@ exports.getCompletedCountByBranchProductId = function(req,res,next) {
 
 exports.getPriceForBranchProductId = function(req,res,next) {
     var sql = "SELECT p.price from product p, `branch-product` bp where bp.product_id = p.id and bp.bp_id = ?";
-    
-    console.log(req.params.id);
+    logger.info(req.params.id);
     try {
        db.query(sql,[req.params.id], function(err, result) {
           if (err) {
@@ -77,7 +76,6 @@ exports.getDetailsForBranchProductId = function(req,res,next) {
     async.parallel({
         price : function(callback) {
             var sql = "SELECT p.price from product p, `branch-product` bp where bp.product_id = p.id and bp.bp_id = ?";
-    
             logger.info(req.params.id);
             try {
                db.query(sql,[req.params.id], function(err, result) {
