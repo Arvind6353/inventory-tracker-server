@@ -50,8 +50,8 @@ app.use(helmet.contentSecurityPolicy({
   directives: {
     defaultSrc: ["'self'"],
     scriptSrc:["'self'","'unsafe-inline'"],
-    styleSrc: ["'unsafe-inline'",  "'self'", "maxcdn.bootstrapcdn.com","http://code.jquery.com","https://www.paypalobjects.com"],
-    imgSrc: ["data:","'self'", "maxcdn.bootstrapcdn.com","http://code.jquery.com","https://www.paypalobjects.com"]
+    styleSrc: ["'unsafe-inline'",  "'self'", "maxcdn.bootstrapcdn.com","http://code.jquery.com"],
+    imgSrc: ["data:","'self'", "maxcdn.bootstrapcdn.com","http://code.jquery.com"]
   }
 }))
 
