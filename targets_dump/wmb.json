@@ -1,0 +1,50 @@
+{
+    "targets" : [
+          {
+              "product_name" : "COTTON WASTE MAT",
+              "quantity" : "150",
+              "month" : "6"
+          },
+          {
+              "product_name" : "COTTON CLOTH TOWEL",
+              "quantity" : "100",
+              "month" : "6"
+          }, 
+          {
+            "product_name" : "COTTON FABRIC",
+            "quantity" : "50",
+            "month" : "6"
+          },
+          {
+            "product_name" : "PAPER CUP",
+            "quantity" : "10000",
+            "month" : "6"
+          },
+          {
+            "product_name" : "SAMBRANI (24 Pieces)",
+            "quantity" : "300",
+            "month" : "6"
+          },
+          {
+            "product_name" : "AGAL & GLASS PAINTING",
+            "quantity" : "2000",
+            "month" : "6"
+          },
+          {
+            "product_name" : "PAPER BAG",
+            "quantity" : "1000",
+            "month" : "6"
+          },
+          {
+            "product_name" : "NEWS PAPER  BAG - Type 1 - SANITARY",
+            "quantity" : "5000",
+            "month" : "6"
+          },
+          {
+            "product_name" : "NEWS PAPER  BAG - Type 3 - TAPOVAN WITHOUT HANDLE",
+            "quantity" : "2000",
+            "month" : "6"
+          }
+        
+        ]
+ } 

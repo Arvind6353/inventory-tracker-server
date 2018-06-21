@@ -1,7 +1,10 @@
 var db = require("../db/config");
 var logger = require("../utils/logger");
 
+var moment = require("moment");
+var momentTz = require('moment-timezone');
 var async = require("async");
+
 exports.getBranchList = function(req,res,next) {
     var sql = "SELECT * from branch ";
     try {
@@ -127,8 +130,7 @@ exports.createProductsByBranchId = function(req,res,next) {
 exports.createTargetsByBranchId = function(req,res,next) {
     var branchId = req.params.id;
     var targets = req.body.targets;
-    logger.info("target "+ targets);
-
+   
     async.each(targets, function(target, callback){
     var bpIdSql = "SELECT bp.bp_id FROM `maithree-db`.`branch-product` bp, `maithree-db`.`product` p where p.id = bp.product_id and bp.branch_id = ? and p.name = ?";
     try {
@@ -141,13 +143,11 @@ exports.createTargetsByBranchId = function(req,res,next) {
            var sql = "INSERT into `product-target` (branch_product_id, effective_start_date, effective_end_date, quantity, created_date) values (?)"; 
            var values = [
                result[0].bp_id,
-               new Date(),
-               new Date(),
+               momentTz(new Date()).tz("Asia/Kolkata").add(1,"month").startOf("month").format("YYYY-MM-DD HH:mm:ss"),
+               momentTz(new Date()).tz("Asia/Kolkata").add(1,"month").endOf("month").format("YYYY-MM-DD HH:mm:ss"),
                target.quantity,
                new Date()
            ];
-           console.log('before insert');
-           console.log(values);
            db.query(sql,[values], function(err, insRes) {
                if (err) {
                    logger.error(err);
@@ -157,11 +157,12 @@ exports.createTargetsByBranchId = function(req,res,next) {
                callback(null,insRes.affectedRows);
                });    
  
-           res.json({});
          });
      } catch (err) {
          logger.error(err);
          next(err);
      }
+    }, function(e, rslt){
+        res.json({});
     });
 }

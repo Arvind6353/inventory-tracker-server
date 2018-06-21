@@ -1,0 +1,39 @@
+{
+    "targets" : [
+          {
+              "product_name" : "COTTON WASTE MAT",
+              "quantity" : "150",
+              "month" : "6"
+          },
+          {
+              "product_name" : "COTTON CLOTH TOWEL",
+              "quantity" : "100",
+              "month" : "6"
+          }, 
+          {
+            "product_name" : "COTTON FABRIC",
+            "quantity" : "20",
+            "month" : "6"
+          },
+          {
+            "product_name" : "COTTON SLIM BAG",
+            "quantity" : "50",
+            "month" : "6"
+          },
+          {
+            "product_name" : "PAPER TAG",
+            "quantity" : "10000",
+            "month" : "6"
+          },
+          {
+            "product_name" : "IMITATION JEWELLERY",
+            "quantity" : "150",
+            "month" : "6"
+          },
+          {
+            "product_name" : "NEWS PAPER  BAG - Type 1 - SANITARY",
+            "quantity" : "2000",
+            "month" : "6"
+          }
+        ]
+ } 
