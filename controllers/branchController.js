@@ -132,7 +132,7 @@ exports.createTargetsByBranchId = function(req,res,next) {
     var targets = req.body.targets;
    
     async.each(targets, function(target, callback){
-    var bpIdSql = "SELECT bp.bp_id FROM `maithree-db`.`branch-product` bp, `maithree-db`.`product` p where p.id = bp.product_id and bp.branch_id = ? and p.name = ?";
+    var bpIdSql = "SELECT bp.bp_id FROM `branch-product` bp, `product` p where p.id = bp.product_id and bp.branch_id = ? and p.name = ?";
     try {
         db.query(bpIdSql,[req.params.id, target.product_name], function(err, result) {
            if (err) {
