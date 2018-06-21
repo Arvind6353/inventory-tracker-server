@@ -14,7 +14,7 @@ var connection = mysql.createConnection({
    // database: 'maithree-db',
    // password: "Admin",
     password: "0bbde678",
-    user : "b8595257fb7838"
+    user : "b8595257fb7838",
     //password: "Admin1234!",
     //database: 'maithree-db',
 
