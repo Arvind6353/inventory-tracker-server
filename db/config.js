@@ -7,7 +7,7 @@ var connection = mysql.createConnection({
     host:'maithree-db-instance.ctxmyhrbijyy.us-east-2.rds.amazonaws.com',
     user: decrypt("dea3c0baabc23256", k),
     password : decrypt("fea3e0ba8bc232560a9d8b",k),
-    database: 'maithr33',
+    database: 'maithree',
     dateStrings : true
 });
 
