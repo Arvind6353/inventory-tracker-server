@@ -61,7 +61,7 @@ app.get('/favicon.ico', function(req, res) {
   res.status(204);
 });
 
-app.use(express.static(path.join(__dirname, 'public'), {
+app.use("/server",express.static(path.join(__dirname, 'public'), {
   maxAge: 86400000 * 300
  }))
 
@@ -79,14 +79,14 @@ var authMiddleware = function(req,res,next) {
   });
 }
 
-app.use('/api/v1/branches', authMiddleware, router.branchRouter)
+app.use('/server/api/v1/branches', authMiddleware, router.branchRouter)
 
-app.use('/api/v1/inventories', authMiddleware ,router.inventoryRouter);
-app.use('/api/v1/reports', authMiddleware ,router.reportRouter);
-app.use('/api/v1/branchProduct', authMiddleware ,router.branchProductRouter)
+app.use('/server/api/v1/inventories', authMiddleware ,router.inventoryRouter);
+app.use('/server/api/v1/reports', authMiddleware ,router.reportRouter);
+app.use('/server/api/v1/branchProduct', authMiddleware ,router.branchProductRouter)
 
-app.use('/api/v1/target', router.targetRouter)
-app.use('/api/v1/auth', router.authRouter)
+app.use('/server/api/v1/target', router.targetRouter)
+app.use('/server/api/v1/auth', router.authRouter)
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

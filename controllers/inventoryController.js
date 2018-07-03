@@ -36,7 +36,8 @@ exports.createInventory = function(req,res,next) {
                     itm.bp_id,
                     itm.quantity,
                     itm.isEndDay,
-                    new Date(itm.created_date),
+                    momentTz(new Date(itm.created_date)).tz("Asia/Kolkata").format("YYYY-MM-DD HH:mm:ss"),
+//                    new Date(itm.created_date),
                     itm.member_code,
                     itm.comments
                     ];
@@ -88,7 +89,10 @@ exports.getInventoryByBranchId = function(req,res,next) {
     p.description";
     console.log(req.params.id,req.query.startDate, req.query.endDate);
     try {
-       db.query(sql,[req.params.id, req.query.startDate,req.query.endDate], function(err, result) {
+       db.query(sql,[req.params.id,
+         momentTz(new Date()).tz("Asia/Kolkata").startOf("day").format("YYYY-MM-DD HH:mm:ss"),
+         momentTz(new Date()).tz("Asia/Kolkata").endOf("day").format("YYYY-MM-DD HH:mm:ss")
+         ], function(err, result) {
           if (err) {
             logger.error(err);
             return next(err);
