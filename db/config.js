@@ -1,25 +1,14 @@
 var mysql = require('mysql');
 var logger = require('../utils/logger')
+var k = process.env.key
+var decrypt = require("./util").decrypt;
 
 var connection = mysql.createConnection({
-   // host: '10.176.16.106',
-    host:'us-cdbr-iron-east-04.cleardb.net',
-   // host : 'localhost',
-   //port: '3301',
-   //user: "admin",
-  // user : "root",
-    //password : '',
-    //password: "Admin",
-   // password: "Admin1234!",
-   // database: 'maithree-db',
-   // password: "Admin",
-    password: "0bbde678",
-    user : "b8595257fb7838",
-    //password: "Admin1234!",
-    //database: 'maithree-db',
-
-    database: 'heroku_ae2a23a8d252231',
-    timezone: 'utc'
+    host:'maithree-db-instance.ctxmyhrbijyy.us-east-2.rds.amazonaws.com',
+    user: decrypt("dea3c0baabc23256", k),
+    password : decrypt("fea3e0ba8bc232560a9d8b",k),
+    database: 'maithr33',
+    dateStrings : true
 });
 
 var createConnection = function() {
