@@ -143,8 +143,8 @@ exports.createTargetsByBranchId = function(req,res,next) {
            var sql = "INSERT into `product-target` (branch_product_id, effective_start_date, effective_end_date, quantity, created_date) values (?)"; 
            var values = [
                result[0].bp_id,
-               momentTz(new Date()).tz("Asia/Kolkata").add(1,"month").startOf("month").format("YYYY-MM-DD HH:mm:ss"),
-               momentTz(new Date()).tz("Asia/Kolkata").add(1,"month").endOf("month").format("YYYY-MM-DD HH:mm:ss"),
+               momentTz(new Date()).tz("Asia/Kolkata").startOf("month").format("YYYY-MM-DD HH:mm:ss"),
+               momentTz(new Date()).tz("Asia/Kolkata").endOf("month").format("YYYY-MM-DD HH:mm:ss"),
                target.quantity,
                new Date()
            ];
