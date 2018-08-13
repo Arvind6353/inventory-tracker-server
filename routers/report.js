@@ -14,4 +14,11 @@ reportRouter.route('/inventories/summary')
     next();
 }).get(reportController.getInventriesCount);
 
+reportRouter.route('/inventories/:branchId/summary')
+.all(function(req,res,next) {
+    console.log(' inside inventory router call for branchId')
+    next();
+}).get(reportController.getInventriesCountByBranchId);
+
+
 module.exports = reportRouter;
