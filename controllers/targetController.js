@@ -32,7 +32,6 @@ function targetByBranchId(obj, cb) {
        and pt.effective_end_date > ? \
    ";
    
-    console.log(obj.id,obj.date);
     try {
        db.query(sql,[obj.id, obj.date], function(err, result) {
           if (err) {
@@ -65,12 +64,11 @@ function getTargetCountByBranchId(obj, cb) {
         and pt.effective_end_date >= ? and pt.effective_start_date <= ? \
     ";
     
-    console.log(obj.id,obj.startDate, obj.endDate);
     try {
         db.query(sql,[obj.id, obj.endDate, obj.startDate], function(err, result) {
             if (err) {
-            logger.error(err);
-            cb(err);
+              logger.error(err);
+              cb(err);
             }
             logger.info("Inventory Data found for branch-product id "+ obj.id);
             cb(null, result);
@@ -108,7 +106,6 @@ exports.getBranchProductDetailsForTarget = function(req, res, next){
     function getFromBranchProduct(callback) {
         var sql = "select a.id, b.branch_id, b.bp_id, 'target' as TempField from `product` a, `branch-product` b where a.id = b.product_id order by a.id;"  
           executeQuery(sql, function(data) {
-              console.log(' result from branch product query ' ,data);
               callback(null, data);
           });
     },
@@ -118,16 +115,17 @@ exports.getBranchProductDetailsForTarget = function(req, res, next){
             if (err) {
                 logger.error(err);
             }
+          
            const r = groupBy(result, (c) => c.branch_product_id);
            const op = resultData.map((rs,i)=>{
-               return {...rs, targetVal : r[rs.bp_id][0].targetVal }
+               return  Object.assign({},rs, {targetVal : r[rs.bp_id] && r[rs.bp_id][0] ? r[rs.bp_id][0].targetVal : 0} );
             })
             callback(null, op);
         });
     },
     function groupByBranchId(targetData, callback) {
         const result = groupBy(targetData, (c) => c.id);
-        console.log(result);
+      
         callback(null, result);
     },
     function getBranchesAndFormTemplate(groupedBranches, callback) {
@@ -138,20 +136,17 @@ exports.getBranchProductDetailsForTarget = function(req, res, next){
                 logger.error(err);
             }
             logger.info("Number of branchces " + result.length);
-            console.log(result);
-            
             var template = {};
-            console.log("result ", result);
             result.map((rs,i)=> {
                 template[rs.id.toString()]= {
                     "id":'',
                     "branch_id":rs.id,
                     "bp_id": '',
-                    "TempField": false,
+                    "isEnabled": false,
                     "targetVal":0
                 };
             });
-            console.log(template);
+       
             callback(null , {groupedBranches , template})
             
         });
@@ -159,26 +154,25 @@ exports.getBranchProductDetailsForTarget = function(req, res, next){
     function (prevdata, callback) {
         var bdata = prevdata.groupedBranches;
         var template = prevdata.template;
-      
         var sql = "SELECT * FROM product";
         executeQuery(sql, function(data) {
             let productData = data
             for(let i in productData) {
-                var temp = {... template};
+                var temp = Object.assign({},template);
                 let pId = productData[i].id.toString();
                 let productUsedInBranches = bdata[pId];
                 if(productUsedInBranches == undefined) {
-                    productData[i]['targetData'] = temp;
+                    productData[i]['targetData'] = Object.values(temp);
                    
                 } else {
                     for(var j=0; j<productUsedInBranches.length ; j++) {
                         var id = productUsedInBranches[j].branch_id.toString();
                         if(temp[id]){
                             temp[id] = productUsedInBranches[j];
-                            temp[id].TempField = true;
+                            temp[id].isEnabled = true;
                         }
                     }
-                        productData[i]['targetData'] = temp;
+                        productData[i]['targetData'] = Object.values(temp);
                 }
                 
             }
@@ -193,7 +187,7 @@ exports.getBranchProductDetailsForTarget = function(req, res, next){
 
 function executeQuery(sqlQuery, cb) {
   try {
-      console.log(sqlQuery)
+
        db.query(sqlQuery, function(err, result) {
           if (err) {
             logger.error(err);
