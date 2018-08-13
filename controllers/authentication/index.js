@@ -2,7 +2,8 @@ var db = require("../../db/config");
 var logger = require("../../utils/logger");
 var bcrypt = require('bcryptjs');
 var jwt = require('jsonwebtoken');
-var secrectjson = require('../../db/secret.json')
+var secrectjson = require('../../db/secret.json');
+
 
 exports.register = function(req,res,next) {
 	
@@ -40,11 +41,11 @@ exports.login = function(req,res,next) {
             return next(err);
           }
          var p = result[0].password;
-         console.log(bcrypt.compareSync(req.body.password, p)); // true
          if(bcrypt.compareSync(req.body.password, p)) {
          		var token = jwt.sign({ id: result[0].username }, secrectjson.secret, {
 			      expiresIn: 86400 // expires in 24 hours
 			    });
+			    req.session['email'] = req.body.username;
 			  return  res.json({token});
           }
           res.json("Invalid username / password");

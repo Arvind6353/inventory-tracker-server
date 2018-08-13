@@ -10,4 +10,21 @@ targetRouter.route('/branch/:id')
 })
 .get(targetController.getTargetByBranchId)
 
+
+targetRouter.route('/get-product-list')
+.all(function(req,res,next) {
+    console.log(' inside get-product-list');
+    next();
+})
+.get(targetController.getProducts)
+
+targetRouter.route('/get-target-data')
+.all(function(req,res,next) {
+    console.log(' inside getBranchProductDetailsForTarget');
+    next();
+})
+.get(targetController.getBranchProductDetailsForTarget)
+
+//getBranchProductDetailsForTarget
+
 module.exports = targetRouter;

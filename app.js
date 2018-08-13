@@ -8,12 +8,15 @@ var config = require('config');
 var helmet = require('helmet')
 var cors = require("cors");
 var jwt = require('jsonwebtoken');
+var session = require('express-session');
 
 var logger = require('./utils/logger');
 
 var db = require('./db/config');
 
 var secrectjson = require('./db/secret.json')
+var cookieSession = require('cookie-session')
+var randomstring = require("randomstring");
 
 
 //configs
@@ -33,6 +36,7 @@ var allowCrossDomain = function(req, res, next) {
 
   next();
 }
+
 
 
 app.use(cors());
@@ -71,15 +75,34 @@ app.get("/", function(req,res,next){
 
 const router = require('./routers/index')
 
+
+
+
 var authMiddleware = function(req,res,next) {
-  console.log(req.headers.auth);
   jwt.verify(req.headers.auth, secrectjson.secret, function(err, decoded) {
     if (err) return res.status(401).send({ auth: false, message: 'Failed to authenticate.' });
     next();
   });
 }
 
-app.use('/server/api/v1/branches', authMiddleware, router.branchRouter)
+var sessionMiddleWare =  function(req,res,next) {
+  let session = req.session;
+  console.log("From middleware",session);
+  if(session) {
+    next();
+  }else{
+    return res.status(401).send({ auth: false, message: 'Session Expired' });
+  }
+}
+
+app.use(session({
+  secret: randomstring.generate(), 
+  resave: false, 
+  saveUninitialized: true,
+  cookie: { maxAge: 10 * 60 * 1000 }
+}))
+
+app.use('/server/api/v1/branches', authMiddleware, sessionMiddleWare, router.branchRouter)
 
 app.use('/server/api/v1/inventories', authMiddleware ,router.inventoryRouter);
 app.use('/server/api/v1/reports', authMiddleware ,router.reportRouter);
@@ -87,6 +110,7 @@ app.use('/server/api/v1/branchProduct', authMiddleware ,router.branchProductRout
 
 app.use('/server/api/v1/target', router.targetRouter)
 app.use('/server/api/v1/auth', router.authRouter)
+
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
@@ -104,6 +128,8 @@ app.use(function (err, req, res, next) {
    logger.error(err)
    res.status(500).render('error');
 });
+
+
 
 process.on('uncaughtException', function(err) {
   logger.error('Caught exception: ' + err);

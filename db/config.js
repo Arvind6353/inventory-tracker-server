@@ -3,13 +3,23 @@ var logger = require('../utils/logger')
 var k = process.env.key
 var decrypt = require("./util").decrypt;
 
-var connection = mysql.createConnection({
+/*var connection = mysql.createConnection({
     host:'maithree-db-instance.ctxmyhrbijyy.us-east-2.rds.amazonaws.com',
     user: decrypt("dea3c0baabc23256", k),
     password : decrypt("fea3e0ba8bc232560a9d8b",k),
     database: 'maithree',
     dateStrings : true
+});*/
+
+/*LOCAL INSTANCE*/
+var connection = mysql.createConnection({
+    host:'localhost',
+    user: "root",
+    password : "root",
+    database: 'maithree',
+    dateStrings : true
 });
+/*END LOCAL INSTANCE*/
 
 var createConnection = function() {
     
