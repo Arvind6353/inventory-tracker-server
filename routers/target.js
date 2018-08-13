@@ -25,6 +25,15 @@ targetRouter.route('/get-target-data')
 })
 .get(targetController.getBranchProductDetailsForTarget)
 
+
+targetRouter.route('/')
+.all(function(req,res,next) {
+    console.log(' inside createOrReplaceTargets');
+    next();
+})
+.post(targetController.createOrReplaceTargets)
+
+
 //getBranchProductDetailsForTarget
 
 module.exports = targetRouter;

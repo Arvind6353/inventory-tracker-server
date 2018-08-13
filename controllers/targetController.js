@@ -204,3 +204,47 @@ function executeQuery(sqlQuery, cb) {
 function groupBy(xs, f) {
   return xs.reduce((r, v, i, a, k = f(v)) => ((r[k] || (r[k] = [])).push(v), r), {});
 }
+
+
+exports.createOrReplaceTargets = createOrReplaceTargets;
+
+function createOrReplaceTargets(req, res, next) {
+ var date = req.body.date;
+ var targets = req.body.targets;
+ console.log(date , targets.length);
+
+ async.eachSeries(targets, function(target, callback) {
+    var updatequery = "update `product-target` set quantity = ? , created_date = ? where effective_start_date = ? and branch_product_id = ? ";
+    try {
+        db.query(updatequery,[target.targetVal, new Date(), date, target.bp_id], function(err, result) {
+            if (err) {
+              logger.error(err);
+            }
+            if(result.affectedRows == 0) {
+                var sql = "INSERT into `product-target` (branch_product_id, effective_start_date, effective_end_date, quantity, created_date) values (?)"; 
+                var values = [
+                    target.bp_id,
+                    momentTz(date).tz("Asia/Kolkata").startOf("month").format("YYYY-MM-DD HH:mm:ss"),
+                    momentTz(date).tz("Asia/Kolkata").endOf("month").format("YYYY-MM-DD HH:mm:ss"),
+                    target.targetVal,
+                    new Date()
+                ];
+                db.query(sql,[values], function(err, insRes) {
+                    if (err) {
+                        logger.error(err);
+                    }
+                });    
+            }
+        });
+    } catch (err) {
+        logger.error(err);
+    }
+    callback(null, []);
+ }, function(err, result){
+     if(err) {
+        return res.json({status : false}); 
+     }
+    return res.json({status : true}); 
+    
+ })
+}
