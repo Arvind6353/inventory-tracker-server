@@ -42,11 +42,11 @@ exports.login = function(req,res,next) {
           }
          var p = result[0].password;
          if(bcrypt.compareSync(req.body.password, p)) {
-         		var token = jwt.sign({ id: result[0].username }, secrectjson.secret, {
+         		var token = jwt.sign({ id: result[0].username , isAdmin : result[0].isAdmin}, secrectjson.secret, {
 			      expiresIn: 86400 // expires in 24 hours
 			    });
-			    req.session['email'] = req.body.username;
-			  return  res.json({token});
+
+			  return  res.json({token, isAdmin: result[0].isAdmin});
           }
           res.json("Invalid username / password");
         });

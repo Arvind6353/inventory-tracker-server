@@ -85,14 +85,12 @@ var authMiddleware = function(req,res,next) {
   });
 }
 
-var sessionMiddleWare =  function(req,res,next) {
-  let session = req.session;
-  console.log("From middleware",session);
-  if(session) {
-    next();
-  }else{
-    return res.status(401).send({ auth: false, message: 'Session Expired' });
-  }
+var adminMiddleWare =  function(req,res,next) {
+  console.log("inside admin middleware");
+  var decoded = jwt.decode(req.headers.auth);
+  console.log(JSON.stringify(decoded));
+  if (decoded.isAdmin != 'Y') return res.status(401).send({ auth: false, message: 'Failed to authenticate.' });
+  next();
 }
 
 app.use(session({
@@ -102,13 +100,15 @@ app.use(session({
   cookie: { maxAge: 10 * 60 * 1000 }
 }))
 
-app.use('/server/api/v1/branches', authMiddleware, sessionMiddleWare, router.branchRouter)
+app.use('/server/api/v1/branches', authMiddleware, router.branchRouter)
 
 app.use('/server/api/v1/inventories', authMiddleware ,router.inventoryRouter);
 app.use('/server/api/v1/reports', authMiddleware ,router.reportRouter);
 app.use('/server/api/v1/branchProduct', authMiddleware ,router.branchProductRouter)
 
-app.use('/server/api/v1/target', router.targetRouter)
+app.use('/server/api/v1/target',authMiddleware, router.targetRouter)
+app.use('/server/api/v1/admin',authMiddleware, adminMiddleWare, router.adminRouter)
+
 app.use('/server/api/v1/auth', router.authRouter)
 
 

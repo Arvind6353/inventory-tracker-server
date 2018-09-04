@@ -4,3 +4,4 @@ exports.reportController = require('./reportController');
 exports.branchProductController = require('./branchProductController');
 exports.targetController = require('./targetController');
 exports.authenticationController = require('./authentication');
+exports.adminController = require('./adminController');
