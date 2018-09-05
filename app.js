@@ -88,7 +88,6 @@ var authMiddleware = function(req,res,next) {
 var adminMiddleWare =  function(req,res,next) {
   console.log("inside admin middleware");
   var decoded = jwt.decode(req.headers.auth);
-  console.log(JSON.stringify(decoded));
   if (decoded.isAdmin != 'Y') return res.status(401).send({ auth: false, message: 'Failed to authenticate.' });
   next();
 }

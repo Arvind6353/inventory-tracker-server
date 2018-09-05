@@ -39,7 +39,10 @@ exports.login = function(req,res,next) {
           if (err) {
             logger.error(err);
             return next(err);
-          }
+		  }
+		  if(!result || result.length == 0) {
+			return res.json("Invalid username / password");
+         }
          var p = result[0].password;
          if(bcrypt.compareSync(req.body.password, p)) {
          		var token = jwt.sign({ id: result[0].username , isAdmin : result[0].isAdmin}, secrectjson.secret, {
